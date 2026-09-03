@@ -1,0 +1,26 @@
+---
+// Top navigation — njX .nav classes + an Alpine theme toggle.
+// data-theme + localStorage; the Layout restores it before first paint.
+---
+
+<nav class="nav nav-solid">
+  <div class="nav-left">
+    <a class="nav-brand" href="#">☁️ Nimbus</a>
+  </div>
+  <div class="nav-center">
+    <a href="#features" class="nav-link">Features</a>
+    <a href="#pricing" class="nav-link">Pricing</a>
+    <a href="#faq" class="nav-link">FAQ</a>
+  </div>
+  <div class="nav-right flex items-center gap-2">
+    <button
+      class="btn btn-ghost btn-sm"
+      x-data="{ t: document.documentElement.dataset.theme || 'dark' }"
+      @click="t = t === 'dark' ? 'light' : 'dark';
+              document.documentElement.dataset.theme = t;
+              localStorage.setItem('theme', t)"
+      x-text="t === 'dark' ? '☀️' : '🌙'"
+      aria-label="Toggle theme"></button>
+    <a class="btn btn-primary btn-sm" href="#pricing">Get started</a>
+  </div>
+</nav>

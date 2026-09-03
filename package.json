@@ -1,0 +1,30 @@
+{
+  "name": "astro-njx-saas",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "SaaS landing page starter: Astro + njX UI + Alpine.js — one CSS import, nine themes, zero custom CSS to write",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/alpinejs": "^0.4.0",
+    "@types/alpinejs": "^3.13.10",
+    "alpinejs": "^3.14.0",
+    "astro": "^5.0.0",
+    "njx-ui": "^1.1.5"
+  },
+  "keywords": [
+    "astro",
+    "astro-theme",
+    "astro-template",
+    "landing-page",
+    "saas",
+    "alpinejs",
+    "njx-ui",
+    "css-library"
+  ],
+  "license": "MIT"
+}

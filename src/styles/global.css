@@ -1,0 +1,32 @@
+/* Your project styles.
+   njX UI ships everything else — this file holds the one signature
+   gradient the examples use, plus whatever you add next. */
+
+/* njX signature hero gradient — full-width banner */
+.hero-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 70% 60% at 30% 20%,
+      color-mix(in srgb, var(--color-primary) 22%, transparent),
+      transparent
+    ),
+    radial-gradient(
+      ellipse 50% 50% at 80% 80%,
+      color-mix(in srgb, var(--color-accent) 12%, transparent),
+      transparent
+    );
+  pointer-events: none;
+}
+
+.hero-glow > * {
+  position: relative;
+  z-index: 2;
+}

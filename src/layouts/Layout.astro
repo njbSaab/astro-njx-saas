@@ -1,0 +1,36 @@
+---
+// Base layout: njX UI from npm (one import), theme restore, SEO meta.
+// Alpine.js is wired through the @astrojs/alpinejs integration (see astro.config.mjs).
+import 'njx-ui/css/style.min.css';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Nimbus — Ship your product faster',
+  description = 'SaaS landing built with Astro + njX UI + Alpine.js: hero, features, pricing toggle, FAQ and CTA. Nine themes, one attribute.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <script is:inline>
+      // restore saved theme before first paint (no flash of wrong theme)
+      const t = localStorage.getItem('theme');
+      if (t) document.documentElement.dataset.theme = t;
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,46 @@
+---
+// Feature cards: three njX showcase card styles, data-driven.
+const FEATURES = [
+  {
+    icon: '⚡',
+    title: 'Instant previews',
+    text: 'Every branch gets a live URL. Share it with the team before merging.',
+    card: 'card-aura',
+    muted: true,
+  },
+  {
+    icon: '↩️',
+    title: 'One-click rollbacks',
+    text: 'Bad deploy? Roll back to any previous build in seconds, zero downtime.',
+    card: 'card-shine', // gradient card — keep its own white text
+    muted: false,
+  },
+  {
+    icon: '📊',
+    title: 'Built-in analytics',
+    text: 'Traffic, errors and web vitals — without adding a single script.',
+    card: 'card-outline-gradient',
+    muted: true,
+  },
+];
+---
+
+<section class="section" id="features">
+  <div class="container">
+    <div class="text-center mb-8">
+      <span class="tag tag-accent">Why Nimbus</span>
+      <h2 class="title-lg mt-3">Everything you need to ship</h2>
+    </div>
+    <div class="grid-col-3 gap-6">
+      {FEATURES.map((f) => (
+        <div class={`${f.card} hover-lift p-6`}>
+          <div class="text-3xl">{f.icon}</div>
+          <h3 class="mt-3">{f.title}</h3>
+          <p class={`mt-2 ${f.muted ? 'text-muted' : ''}`} style={f.muted ? undefined : 'opacity:.85'}>
+            {f.text}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
