@@ -42,12 +42,20 @@ const LINKS = [
     x-text="menu ? '✕' : '☰'"></button>
 </nav>
 
-<!-- mobile dropdown menu (links + themes) -->
-<div class="starter-menu" x-show="menu" x-cloak>
+<!-- mobile menu: dimmed backdrop + floating glass panel -->
+<div
+  class="starter-backdrop"
+  x-show="menu"
+  x-cloak
+  x-transition.opacity.duration.200ms
+  @click="menu = false">
+</div>
+<div class="starter-menu" x-show="menu" x-cloak x-transition.duration.200ms>
   {LINKS.map((l) => (
-    <a href={l.href} class="nav-link" @click="menu = false">{l.label}</a>
+    <a href={l.href} @click="menu = false">{l.label}</a>
   ))}
-  <div class="starter-themes" style="padding:8px 12px">
+  <div class="starter-menu-label">Theme</div>
+  <div class="starter-themes">
     <template x-for="t in themes" x-bind:key="t">
       <button
         class="starter-dot"
@@ -57,4 +65,8 @@ const LINKS = [
         @click="setTheme(t)"></button>
     </template>
   </div>
+  <a class="starter-menu-github" href={SITE.github} target="_blank" rel="noopener" @click="menu = false">
+    <GithubIcon />
+    Star on GitHub
+  </a>
 </div>
