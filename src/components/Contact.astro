@@ -1,0 +1,41 @@
+---
+// Contact form in a gradient shell + success toast (library .toast).
+// Demo-only submit: swap send() for a fetch to your endpoint when you wire a backend.
+---
+
+<section
+  class="section"
+  id="contact"
+  x-data="{ name: '', email: '', msg: '', sent: false,
+            send() { if (!this.email.includes('@')) return;
+                     this.sent = true;
+                     this.name = this.email = this.msg = '';
+                     setTimeout(() => this.sent = false, 3500); } }"
+>
+  <div class="container" style="max-width:640px">
+    <div class="sec-head text-center">
+      <span class="tag tag-accent">Contact</span>
+      <h2 class="title-lg">Tell us what you're building</h2>
+      <p class="text-muted sec-sub">Questions, ideas, a component you're missing — write to us.</p>
+    </div>
+    <form class="contact-shell" @submit.prevent="send()">
+      <label>
+        Your name
+        <input type="text" placeholder="Alex" x-model="name" required />
+      </label>
+      <label>
+        Email
+        <input type="email" placeholder="you@work.com" x-model="email" required />
+      </label>
+      <label class="full">
+        Message
+        <textarea rows="5" placeholder="What are you building? What component are you missing?" x-model="msg" required></textarea>
+      </label>
+      <button class="btn btn-gradient btn-lg hover-lift" type="submit">Send message</button>
+    </form>
+    <!-- success toast (library .toast) -->
+    <div class="starter-toast" x-show="sent" x-cloak>
+      <div class="toast toast-success">✅ Message sent — we'll get back to you soon!</div>
+    </div>
+  </div>
+</section>

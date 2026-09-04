@@ -1,26 +1,60 @@
 ---
-// Top navigation — njX .nav classes + an Alpine theme toggle.
-// data-theme + localStorage; the Layout restores it before first paint.
+// Sticky glass header: gradient logo · anchor links · theme dots · GitHub button.
+// Menu/theme state lives on <body> (see Layout.astro) — the burger and the
+// mobile dropdown share it.
+import { SITE } from '../config';
+import GithubIcon from './GithubIcon.astro';
+
+const LINKS = [
+  { href: '#about', label: 'About' },
+  { href: '#features', label: 'Features' },
+  { href: '#showcase', label: 'Showcase' },
+  { href: '#reviews', label: 'Reviews' },
+  { href: '#contact', label: 'Contact' },
+];
 ---
 
-<nav class="nav nav-solid">
-  <div class="nav-left">
-    <a class="nav-brand" href="#">☁️ Nimbus</a>
+<nav class="snav">
+  <a class="snav-logo" href="#top">{SITE.name}</a>
+  <span class="snav-ver">{SITE.badge}</span>
+  <div class="snav-links">
+    {LINKS.map((l) => <a href={l.href}>{l.label}</a>)}
   </div>
-  <div class="nav-center">
-    <a href="#features" class="nav-link">Features</a>
-    <a href="#pricing" class="nav-link">Pricing</a>
-    <a href="#faq" class="nav-link">FAQ</a>
+  <div class="snav-spacer"></div>
+  <div class="starter-themes" title="Switch theme">
+    <template x-for="t in themes" x-bind:key="t">
+      <button
+        class="starter-dot"
+        :class="{ 'is-active': theme === t }"
+        :style="'background:' + colors[t]"
+        :aria-label="t"
+        @click="setTheme(t)"></button>
+    </template>
   </div>
-  <div class="nav-right flex items-center gap-2">
-    <button
-      class="btn btn-ghost btn-sm"
-      x-data="{ t: document.documentElement.dataset.theme || 'dark' }"
-      @click="t = t === 'dark' ? 'light' : 'dark';
-              document.documentElement.dataset.theme = t;
-              localStorage.setItem('theme', t)"
-      x-text="t === 'dark' ? '☀️' : '🌙'"
-      aria-label="Toggle theme"></button>
-    <a class="btn btn-primary btn-sm" href="#pricing">Get started</a>
-  </div>
+  <a class="snav-github" href={SITE.github} target="_blank" rel="noopener">
+    <GithubIcon />
+    GitHub
+  </a>
+  <button
+    class="btn btn-ghost btn-sm starter-burger"
+    aria-label="Menu"
+    @click="menu = !menu"
+    x-text="menu ? '✕' : '☰'"></button>
 </nav>
+
+<!-- mobile dropdown menu (links + themes) -->
+<div class="starter-menu" x-show="menu" x-cloak>
+  {LINKS.map((l) => (
+    <a href={l.href} class="nav-link" @click="menu = false">{l.label}</a>
+  ))}
+  <div class="starter-themes" style="padding:8px 12px">
+    <template x-for="t in themes" x-bind:key="t">
+      <button
+        class="starter-dot"
+        :class="{ 'is-active': theme === t }"
+        :style="'background:' + colors[t]"
+        :aria-label="t"
+        @click="setTheme(t)"></button>
+    </template>
+  </div>
+</div>

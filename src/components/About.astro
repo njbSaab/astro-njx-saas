@@ -1,0 +1,32 @@
+---
+// About + metric cards. Edit the METRICS array — the grid renders itself.
+const METRICS = [
+  { num: '44 KB', label: 'gzipped, full library' },
+  { num: '9', label: 'built-in themes' },
+  { num: '1', label: 'CDN link to start' },
+  { num: '0', label: 'build steps' },
+];
+---
+
+<section class="section" id="about">
+  <div class="container">
+    <div class="sec-head">
+      <span class="tag tag-accent">About</span>
+      <h2 class="title-lg">What is njX UI?</h2>
+      <p class="text-muted sec-sub">
+        A CSS component library that lives on a CDN. DaisyUI vibes without the
+        Tailwind dependency: semantic classes, ready-made blocks and themes that
+        switch with one attribute. Pair it with Alpine.js when you need state —
+        njX ships the look, you ship the page.
+      </p>
+    </div>
+    <div class="grid-col-4 gap-4">
+      {METRICS.map((m) => (
+        <div class="card p-5 text-center hover-lift">
+          <div class="metric-num text-gradient-primary">{m.num}</div>
+          <div class="text-sm text-muted">{m.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

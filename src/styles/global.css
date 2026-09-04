@@ -1,32 +1,393 @@
-/* Your project styles.
-   njX UI ships everything else — this file holds the one signature
-   gradient the examples use, plus whatever you add next. */
+/* ═══════════════════════════════════════════════════════════════
+   Theme chrome.
+   njX UI does the heavy lifting (imported from npm in Layout.astro) —
+   this file holds the site chrome (sticky navbar, full-screen hero,
+   form layout, section decor) and whatever you add next.
+   ═══════════════════════════════════════════════════════════════ */
 
-/* njX signature hero gradient — full-width banner */
+[x-cloak] {
+  display: none !important;
+}
+
+/* ── njX signature hero gradient — full-width banner ── */
 .hero-glow {
   position: relative;
   overflow: hidden;
 }
-
 .hero-glow::before {
   content: '';
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(
-      ellipse 70% 60% at 30% 20%,
-      color-mix(in srgb, var(--color-primary) 22%, transparent),
-      transparent
-    ),
-    radial-gradient(
-      ellipse 50% 50% at 80% 80%,
-      color-mix(in srgb, var(--color-accent) 12%, transparent),
-      transparent
-    );
+    radial-gradient(ellipse 70% 60% at 30% 20%,
+      color-mix(in srgb, var(--color-primary) 22%, transparent), transparent),
+    radial-gradient(ellipse 50% 50% at 80% 80%,
+      color-mix(in srgb, var(--color-accent) 12%, transparent), transparent);
   pointer-events: none;
 }
-
 .hero-glow > * {
   position: relative;
   z-index: 2;
 }
+
+/* ── HERO: full viewport, tidy vertical rhythm ── */
+.hero-full {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px 40px;
+}
+.hero-full .hero-title {
+  margin: 20px 0 16px;
+  font-size: clamp(38px, 5vw, 64px);
+}
+.hero-full .text-lead {
+  max-width: 640px;
+  margin: 0 auto 28px;
+}
+.hero-full .flex {
+  margin-top: 28px;
+}
+
+/* CDN tag pill — click to copy */
+.cdn-pill {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 10px;
+  max-width: min(92vw, 640px);
+  padding: 10px 18px;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 30%, transparent);
+  background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+  color: var(--color-light);
+  font-family: 'Roboto Mono', ui-monospace, monospace;
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+.cdn-pill:hover {
+  border-color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 14%, transparent);
+  transform: translateY(-2px);
+}
+.cdn-pill-url {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--color-primary);
+}
+.cdn-pill-lt {
+  color: var(--color-muted);
+  flex-shrink: 0;
+}
+.cdn-pill-copy {
+  opacity: 0.6;
+}
+
+/* ── HEADER — sticky glass navbar ── */
+.snav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 24px;
+  background: color-mix(in srgb, var(--сolor-dark) 85%, transparent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-neutral-600) 20%, transparent);
+}
+.snav-logo {
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.snav-ver {
+  font-size: 11px;
+  font-family: 'Roboto Mono', ui-monospace, monospace;
+  color: var(--color-muted);
+  opacity: 0.5;
+}
+.snav-links {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.snav-links a {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color 0.2s, background 0.2s;
+}
+.snav-links a:hover {
+  color: var(--color-light);
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+}
+.snav-spacer {
+  flex: 1;
+}
+.snav-github {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--color-primary);
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--color-primary) 40%, transparent);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.snav-github:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-primary) 50%, transparent);
+}
+
+/* ── Theme switcher dots ── */
+.starter-themes {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.starter-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.starter-dot:hover {
+  transform: scale(1.2);
+}
+.starter-dot.is-active {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 2px var(--color-dark-secondary), 0 0 0 4px currentColor;
+}
+
+/* ── Sections: one place for heading rhythm (no mt/mb soup in markup) ── */
+.sec-head {
+  margin-bottom: 36px;
+  text-align: center;
+}
+.sec-head .title-lg {
+  margin: 14px 0 12px;
+}
+.sec-sub {
+  max-width: 620px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+#features h3,
+#showcase h2 {
+  margin: 12px 0 8px;
+}
+#features p {
+  margin: 0;
+}
+#showcase p {
+  margin: 0 0 18px;
+}
+#showcase .tag {
+  margin-bottom: 4px;
+}
+
+/* metrics under About */
+.metric-num {
+  font-size: 34px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  margin-bottom: 6px;
+}
+
+/* check-list in Showcase */
+.check-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 22px;
+}
+.check-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  color: var(--color-muted);
+}
+
+/* showcase: grid centering without the library's flex .items-center */
+.showcase-grid {
+  align-items: center;
+}
+
+/* showcase mini-cards */
+.showcase-card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform 0.25s;
+}
+.showcase-card:hover {
+  transform: translateY(-4px);
+}
+.showcase-card h3 {
+  margin: 10px 0 4px;
+}
+.showcase-card p {
+  margin: 0;
+}
+
+/* ── Contact form — gradient shell ── */
+.contact-shell {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  padding: clamp(22px, 4vw, 32px);
+  border-radius: 24px;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 30%, transparent);
+  background:
+    radial-gradient(circle at 8% 0,
+      color-mix(in srgb, var(--color-primary) 22%, transparent), transparent 20rem),
+    radial-gradient(circle at 100% 18%,
+      color-mix(in srgb, var(--color-accent) 16%, transparent), transparent 18rem),
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--color-dark-secondary) 94%, transparent),
+      color-mix(in srgb, var(--сolor-dark) 86%, transparent));
+  box-shadow: 0 30px 90px color-mix(in srgb, #000 24%, transparent);
+}
+.contact-shell label {
+  display: grid;
+  gap: 8px;
+  text-align: left;
+  color: var(--color-light);
+  font-size: 13px;
+  font-weight: 800;
+}
+.contact-shell label.full {
+  grid-column: 1 / -1;
+}
+.contact-shell input,
+.contact-shell textarea {
+  width: 100%;
+  border: 1px solid color-mix(in srgb, var(--color-neutral-600) 34%, transparent);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--сolor-dark) 78%, transparent);
+  color: var(--color-light);
+  padding: 13px 14px;
+  outline: none;
+  font-family: inherit;
+  font-size: 14px;
+}
+.contact-shell textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+.contact-shell input:focus,
+.contact-shell textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 14%, transparent);
+}
+.contact-shell input::placeholder,
+.contact-shell textarea::placeholder {
+  color: var(--color-muted);
+}
+.contact-shell button {
+  grid-column: 1 / -1;
+  justify-content: center;
+}
+@media (max-width: 640px) {
+  .contact-shell {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* success toast — fixed bottom center */
+.starter-toast {
+  position: fixed;
+  bottom: 28px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 9500;
+  pointer-events: none;
+}
+
+/* ── Mobile: burger + dropdown menu ── */
+.starter-burger {
+  display: none;
+}
+.starter-menu {
+  position: sticky;
+  top: 60px;
+  z-index: 190;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 20px;
+  background: var(--color-dark-secondary);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-neutral-600) 25%, transparent);
+}
+@media (max-width: 900px) {
+  .snav-links {
+    display: none;
+  }
+  .starter-burger {
+    display: inline-flex;
+  }
+  .snav .starter-themes {
+    display: none;
+  }
+  .snav-github {
+    padding: 8px 12px;
+  }
+}
+@media (min-width: 901px) {
+  .starter-menu {
+    display: none !important;
+  }
+}
+
+/* ── Section decor: alternating tint + soft color glows ── */
+.sec-tint {
+  background: color-mix(in srgb, var(--color-dark-secondary) 45%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--color-primary) 10%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-primary) 10%, transparent);
+}
+.sec-glow {
+  position: relative;
+  overflow: hidden;
+}
+.sec-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 45% 50% at 88% 12%,
+      color-mix(in srgb, var(--color-accent) 10%, transparent), transparent),
+    radial-gradient(ellipse 40% 45% at 8% 88%,
+      color-mix(in srgb, var(--color-primary) 12%, transparent), transparent);
+}
+.sec-glow > * {
+  position: relative;
+}
+
+/* ── Your styles below ── */

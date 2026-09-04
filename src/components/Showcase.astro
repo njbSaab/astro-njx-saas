@@ -1,0 +1,47 @@
+---
+// Two-column promo: checklist on the left, mini-card grid on the right.
+import { SITE } from '../config';
+
+const CHECKS = [
+  'SaaS landing with pricing toggle & FAQ',
+  'Portfolio with Alpine filter tabs',
+  'Product launch with modal & carousel',
+  'This starter — folder structure included',
+];
+
+const CARDS = [
+  { card: 'card-glass', icon: '☁️', title: 'SaaS', text: 'Pricing · FAQ · CTA', muted: true },
+  { card: 'card-glow', icon: '👨‍💻', title: 'Portfolio', text: 'Projects · Filters', muted: true },
+  { card: 'card-gradient', icon: '🛰', title: 'Launch', text: 'Waitlist · Modal', muted: false },
+  { card: 'card-outline-gradient', icon: '🚀', title: 'Starter', text: 'You are here', muted: true },
+];
+---
+
+<section class="section sec-glow" id="showcase">
+  <div class="container grid-col-2 gap-8 showcase-grid">
+    <div>
+      <span class="tag tag-accent">Showcase</span>
+      <h2 class="title-lg">Full pages, already built</h2>
+      <p class="text-muted">
+        This very page is one of them — every element you're looking at is an
+        njX UI class. The examples gallery has complete landings you can
+        download as a single file and make yours in minutes.
+      </p>
+      <ul class="check-list">
+        {CHECKS.map((c) => (
+          <li><span class="badge badge-success">✓</span> {c}</li>
+        ))}
+      </ul>
+      <a class="btn btn-gradient hover-lift" href={SITE.examples} target="_blank" rel="noopener">Browse examples →</a>
+    </div>
+    <div class="grid-col-2 gap-4">
+      {CARDS.map((c) => (
+        <a class={`${c.card} p-5 showcase-card`} href={SITE.examples} target="_blank" rel="noopener">
+          <div class="text-3xl">{c.icon}</div>
+          <h3>{c.title}</h3>
+          <p class={`text-sm ${c.muted ? 'text-muted' : ''}`.trim()} style={c.muted ? undefined : 'opacity:.9'}>{c.text}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

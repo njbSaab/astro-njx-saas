@@ -1,18 +1,36 @@
 ---
 // Base layout: njX UI from npm (one import), theme restore, SEO meta.
 // Alpine.js is wired through the @astrojs/alpinejs integration (see astro.config.mjs).
+// The <body> carries the page-wide Alpine state: mobile menu, theme switcher,
+// copy-CDN pill and the "star us" modal — sections read it from anywhere.
 import 'njx-ui/css/style.min.css';
 import '../styles/global.css';
+import { SITE } from '../config';
 
 interface Props {
   title?: string;
   description?: string;
 }
 
-const {
-  title = 'Nimbus — Ship your product faster',
-  description = 'SaaS landing built with Astro + njX UI + Alpine.js: hero, features, pricing toggle, FAQ and CTA. Nine themes, one attribute.',
-} = Astro.props;
+const { title = SITE.title, description = SITE.description } = Astro.props;
+
+const bodyState = `{ menu: false,
+  themes: ['dark','light','red','blue','green','cyan','yellow','pink','purple'],
+  colors: { dark:'#4a4a56', light:'#e2e8f0', red:'#f43f5e', blue:'#3b82f6', green:'#22c55e',
+            cyan:'#00e5ff', yellow:'#facc15', pink:'#ec4899', purple:'#a855f7' },
+  theme: document.documentElement.dataset.theme || 'dark',
+  setTheme(t) { this.theme = t;
+                document.documentElement.dataset.theme = t;
+                localStorage.setItem('theme', t); },
+  copied: false,
+  copyCdn() { navigator.clipboard.writeText(${JSON.stringify(SITE.cdnSnippet)});
+              this.copied = true; setTimeout(() => this.copied = false, 2200); },
+  star: false }`;
+
+const starInit = SITE.starPopupDelay
+  ? `if (!localStorage.getItem('njx-star-asked'))
+       setTimeout(() => { star = true; localStorage.setItem('njx-star-asked', '1'); }, ${SITE.starPopupDelay})`
+  : '';
 ---
 
 <!doctype html>
@@ -30,7 +48,7 @@ const {
       if (t) document.documentElement.dataset.theme = t;
     </script>
   </head>
-  <body>
+  <body x-data={bodyState} x-init={starInit} @keydown.escape.window="star = false; menu = false">
     <slot />
   </body>
 </html>

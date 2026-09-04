@@ -1,0 +1,22 @@
+---
+// "Star us" modal (library .lib-modal-*). Opens once per visitor,
+// SITE.starPopupDelay ms after load — state lives on <body> (Layout.astro).
+// Set starPopupDelay: 0 in src/config.ts to disable.
+import { SITE } from '../config';
+---
+
+<div class="lib-modal-overlay" :class="{ open: star }" @click.self="star = false">
+  <div class="lib-modal-box is-primary">
+    <button class="lib-modal-close" @click="star = false">✕</button>
+    <div class="lib-modal-icon-wrap">⭐</div>
+    <div class="lib-modal-title">Enjoying njX UI?</div>
+    <div class="lib-modal-text">
+      A star on GitHub takes two seconds and helps other developers find the
+      library. Thank you!
+    </div>
+    <div class="lib-modal-actions">
+      <a class="btn btn-gradient btn-sm hover-lift" href={SITE.github} target="_blank" rel="noopener" @click="star = false">★ Star on GitHub</a>
+      <button class="btn btn-ghost btn-sm" @click="star = false">Maybe later</button>
+    </div>
+  </div>
+</div>

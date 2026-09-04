@@ -2,7 +2,7 @@
   "name": "astro-njx-saas",
   "type": "module",
   "version": "1.0.0",
-  "description": "SaaS landing page starter: Astro + njX UI + Alpine.js — one CSS import, nine themes, zero custom CSS to write",
+  "description": "Product landing starter: Astro + njX UI + Alpine.js — full-viewport hero, showcase cards, reviews slider, contact form. One CSS import, nine themes.",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",

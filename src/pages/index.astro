@@ -2,19 +2,28 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
 import Features from '../components/Features.astro';
-import Pricing from '../components/Pricing.astro';
-import Faq from '../components/Faq.astro';
-import Cta from '../components/Cta.astro';
+import Showcase from '../components/Showcase.astro';
+import Reviews from '../components/Reviews.astro';
+import Contact from '../components/Contact.astro';
+import Social from '../components/Social.astro';
 import Footer from '../components/Footer.astro';
+import StarModal from '../components/StarModal.astro';
 ---
 
 <Layout>
   <Nav />
   <Hero />
+  <About />
   <Features />
-  <Pricing />
-  <Faq />
-  <Cta />
+  <Showcase />
+  <!-- Contact + Social share one glow backdrop for visual continuity -->
+  <Reviews />
+  <div class="sec-glow">
+    <Contact />
+    <Social />
+  </div>
   <Footer />
+  <StarModal />
 </Layout>

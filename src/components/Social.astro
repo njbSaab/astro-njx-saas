@@ -1,0 +1,44 @@
+---
+// Social links on the library's .social-list-pills.
+import { SITE } from '../config';
+import GithubIcon from './GithubIcon.astro';
+---
+
+<section class="section" id="social">
+  <div class="container text-center">
+    <h2 class="title-lg">njX UI everywhere</h2>
+    <p class="text-muted sec-sub" style="margin:0 auto 24px">Docs, source and updates — one click away.</p>
+    <ul class="social-list social-list-pills" style="justify-content:center">
+      <li>
+        <a href={SITE.github} target="_blank" rel="noopener" aria-label="GitHub">
+          <GithubIcon />
+          GitHub
+        </a>
+      </li>
+      <li>
+        <a href={SITE.npm} target="_blank" rel="noopener" aria-label="npm">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"
+            ><path d="M0 0v24h24V0H0zm19.2 19.2h-2.4V9.6h-4.8v9.6H4.8V4.8h14.4v14.4z"></path></svg
+          >
+          npm · njx-ui
+        </a>
+      </li>
+      <li>
+        <a href={SITE.docs} target="_blank" rel="noopener" aria-label="Docs">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6M16 13H8M16 17H8"></path></svg
+          >
+          Documentation
+        </a>
+      </li>
+      <li>
+        <a href={SITE.classless} target="_blank" rel="noopener" aria-label="Classless">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            ><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg
+          >
+          Classless njX
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>

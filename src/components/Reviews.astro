@@ -1,0 +1,86 @@
+---
+// Reviews on the library's .hero-slider: autoplay · progress bar · prev/next ·
+// dots · touch swipe — all driven by one Alpine x-data right in the markup.
+// Edit SLIDES; `tint` colors the slide gradient from the theme palette.
+const SLIDES = [
+  {
+    tint: 'var(--color-primary)',
+    base: '#0c1524',
+    label: '★★★★★ · Indie hacker · Milan',
+    quote: '“Pasted the CDN link at 9am, the landing was live before lunch.”',
+    author: '— Dario, shipped three client landings on njX this quarter.',
+  },
+  {
+    tint: 'var(--color-accent)',
+    base: '#140f0a',
+    label: '★★★★★ · Frontend dev · Warsaw',
+    quote: '“Finally gradients and glow cards that don\'t require a design system meeting.”',
+    author: '— Sasha, moved the team\'s marketing pages off a heavy framework.',
+  },
+  {
+    tint: 'var(--color-success)',
+    base: '#0a1410',
+    label: '★★★★★ · Freelancer · Osaka',
+    quote: '“The Alpine recipes in the docs saved me from writing custom JS at all.”',
+    author: '— Kenji, builds one-pagers for local businesses.',
+  },
+];
+
+const sliderState = `{ i: 0, n: ${SLIDES.length}, iv: 4500, timer: null, sx: 0,
+  go(idx) { this.i = (idx + this.n) % this.n; this.prog(); },
+  prog() { const p = this.$refs.progress;
+           p.style.transition = 'none'; p.style.width = '0%';
+           requestAnimationFrame(() => requestAnimationFrame(() => {
+             p.style.transition = 'width ' + this.iv + 'ms linear';
+             p.style.width = '100%'; })); },
+  reset() { clearInterval(this.timer);
+            this.timer = setInterval(() => this.go(this.i + 1), this.iv); } }`;
+---
+
+<section class="section sec-tint" id="reviews">
+  <div class="container" style="max-width:760px">
+    <div class="sec-head text-center">
+      <span class="tag tag-primary">Reviews</span>
+      <h2 class="title-lg">Developers about njX</h2>
+    </div>
+    <div
+      class="hero-slider"
+      x-data={sliderState}
+      x-init="prog(); timer = setInterval(() => go(i + 1), iv)"
+      @mouseenter="clearInterval(timer)"
+      @mouseleave="reset()"
+      @touchstart.passive="sx = $event.touches[0].clientX"
+      @touchend="const dx = $event.changedTouches[0].clientX - sx;
+                 if (Math.abs(dx) > 40) { go(i + (dx < 0 ? 1 : -1)); reset(); }"
+    >
+      <div class="hero-slider-track" :style="'transform:translateX(-' + (i * 100) + '%)'">
+        {SLIDES.map((s) => (
+          <div
+            class="hero-slider-slide"
+            style={`background:linear-gradient(135deg, color-mix(in srgb, ${s.tint} 40%, ${s.base}), color-mix(in srgb, ${s.tint} 12%, ${s.base}))`}
+          >
+            <div class="hero-slider-body">
+              <div class="hero-slider-label">{s.label}</div>
+              <div class="hero-slider-title">{s.quote}</div>
+              <div class="hero-slider-desc">{s.author}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="hero-slider-nav">
+        <button class="hero-slider-btn" aria-label="Previous" @click="go(i - 1); reset()">‹</button>
+        <button class="hero-slider-btn" aria-label="Next" @click="go(i + 1); reset()">›</button>
+      </div>
+      <div class="hero-slider-dots">
+        <template x-for="d in n" x-bind:key="d">
+          <button
+            class="hero-slider-dot"
+            :class="{ 'is-active': i === d - 1 }"
+            :aria-label="'Slide ' + d"
+            @click="go(d - 1); reset()"></button>
+        </template>
+      </div>
+      <div class="hero-slider-progress" x-ref="progress"></div>
+    </div>
+  </div>
+</section>
