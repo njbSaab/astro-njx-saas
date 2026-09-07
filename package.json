@@ -26,5 +26,14 @@
     "njx-ui",
     "css-library"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "homepage": "https://astro-njx-saas.pages.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/njbSaab/astro-njx-saas.git"
+  },
+  "bugs": {
+    "url": "https://github.com/njbSaab/astro-njx-saas/issues"
+  },
+  "author": "njbSaab (https://njxui.dev)"
 }

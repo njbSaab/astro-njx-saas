@@ -36,7 +36,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 80px 20px 40px;
+  padding: 0 20px 40px;
 }
 .hero-full .hero-title {
   margin: 20px 0 16px;
@@ -251,9 +251,6 @@
 /* mobile: the library folds every grid to 1fr at 599px — keep the small
    cards paired (2×2), and drop the hero's top padding */
 @media (max-width: 599px) {
-  .hero-full {
-    padding: 0 20px 40px;
-  }
   #about .grid-col-4 {
     grid-template-columns: 1fr 1fr;
   }
