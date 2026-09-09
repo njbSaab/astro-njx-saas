@@ -1,5 +1,7 @@
 # astro-njx-saas
 
+> Part of **[njX Astro Themes](https://njxui.dev/themes)** — ecommerce storefronts & landing pages by one author, free today, Pro versions on the way.
+
 **Product landing starter — Astro + [njX UI](https://njxui.dev) (npm: `njx-ui`) + Alpine.js.**
 
 One CSS import, nine runtime themes, ~30 lines of custom chrome. Every element on
